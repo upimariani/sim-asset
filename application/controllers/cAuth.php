@@ -45,6 +45,8 @@ class cAuth extends CI_Controller
     public function logout()
     {
         $this->session->unset_userdata('id');
+        $this->session->set_flashdata('success', 'Anda Berhasil Logout!');
+
         redirect('cAuth');
     }
 }

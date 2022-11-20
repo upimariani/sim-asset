@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Sep 2022 pada 16.47
+-- Waktu pembuatan: 20 Nov 2022 pada 04.16
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -42,6 +42,14 @@ CREATE TABLE `asset` (
   `jml_asset` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `asset`
+--
+
+INSERT INTO `asset` (`id_asset`, `id_lokasi`, `id_kategori`, `id_barang`, `id_user`, `kode_asset`, `merk`, `asal_usul`, `tgl_peroleh`, `harga_asset`, `gambar_asset`, `jml_asset`) VALUES
+(1, 1, 1, 2, 1, 'TNH-001-XI-2022', 'Tanah Hibah', 'H.ZAenal Arifin', '2022-11-20', '200000000', 'Screenshot_2022-06-27_120735.png', 20),
+(2, 1, 2, 1, 1, 'LPTP-001-XI-2022', 'Lenovo Ideapad-330', 'Inventaris Kantor', '2022-11-08', '5000000', 'Screenshot_2022-06-27_120554.png', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -51,12 +59,16 @@ CREATE TABLE `asset` (
 CREATE TABLE `asset_kep` (
   `id_asset_kep` int(11) NOT NULL,
   `id_pengajuan` int(11) NOT NULL,
-  `id_kualitas` int(11) NOT NULL,
-  `id_spesifikasi` int(11) NOT NULL,
   `tgl_kep` varchar(15) NOT NULL,
-  `hasil` varchar(10) NOT NULL,
   `nama_asset_kep` varchar(125) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `asset_kep`
+--
+
+INSERT INTO `asset_kep` (`id_asset_kep`, `id_pengajuan`, `tgl_kep`, `nama_asset_kep`) VALUES
+(1, 1, '2022-11-20', 'Laptop Asus Seri-A');
 
 -- --------------------------------------------------------
 
@@ -70,6 +82,14 @@ CREATE TABLE `barang` (
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `barang`
+--
+
+INSERT INTO `barang` (`id_barang`, `nama_barang`, `keterangan`) VALUES
+(1, 'Laptop', 'buah'),
+(2, 'Tanah', 'meter');
+
 -- --------------------------------------------------------
 
 --
@@ -81,17 +101,13 @@ CREATE TABLE `kategori` (
   `nama_kategori` varchar(125) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `kualitas`
+-- Dumping data untuk tabel `kategori`
 --
 
-CREATE TABLE `kualitas` (
-  `id_kualitas` int(11) NOT NULL,
-  `nama_kualitas` varchar(30) NOT NULL,
-  `point_kualitas` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
+(1, 'Asset Tetap'),
+(2, 'Asset Sementara');
 
 -- --------------------------------------------------------
 
@@ -104,6 +120,13 @@ CREATE TABLE `lokasi_asset` (
   `nama_lokasi` varchar(125) NOT NULL,
   `alamat_lengkap` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `lokasi_asset`
+--
+
+INSERT INTO `lokasi_asset` (`id_lokasi`, `nama_lokasi`, `alamat_lengkap`) VALUES
+(1, 'Kantor', 'Jln.Pramuka No.65 Kel.Purwawinangun Kec/Kab.Kuningan');
 
 -- --------------------------------------------------------
 
@@ -120,6 +143,13 @@ CREATE TABLE `monitoring` (
   `faktor_penyebab` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `monitoring`
+--
+
+INSERT INTO `monitoring` (`id_monitoring`, `id_asset`, `tgl_monitoring`, `hasil_monitoring`, `gambar_asset_monitoring`, `faktor_penyebab`) VALUES
+(1, 2, '2022-11-19', '<p>Memiliki Kinerja yang menurun</p>', 'Screenshot_2022-06-27_121156.png', '<p>Butuh Penggantian RAM</p>');
+
 -- --------------------------------------------------------
 
 --
@@ -130,11 +160,17 @@ CREATE TABLE `pengajuan` (
   `id_pengajuan` int(11) NOT NULL,
   `id_monitoring` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `id_barang` int(11) NOT NULL,
   `tgl_pengajuan` varchar(15) NOT NULL,
   `total_pengajuan` int(11) NOT NULL,
   `status_pengajuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id_pengajuan`, `id_monitoring`, `id_user`, `tgl_pengajuan`, `total_pengajuan`, `status_pengajuan`) VALUES
+(1, 1, 1, '2022-11-20', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -150,17 +186,13 @@ CREATE TABLE `penyusutan` (
   `status_asset` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `spesifikasi`
+-- Dumping data untuk tabel `penyusutan`
 --
 
-CREATE TABLE `spesifikasi` (
-  `id_spesifikasi` int(11) NOT NULL,
-  `nama_spesifikasi` varchar(30) NOT NULL,
-  `point_spesifikasi` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `penyusutan` (`id_penyusutan`, `id_asset`, `ket_penyusutan`, `min_harga`, `status_asset`) VALUES
+(1, 2, 'Melemahnya Kinerja Laptop', '100000', 0),
+(2, 2, 'kinerja', '50000', 0);
 
 -- --------------------------------------------------------
 
@@ -177,6 +209,14 @@ CREATE TABLE `user` (
   `password` varchar(125) NOT NULL,
   `level_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id_user`, `nama_user`, `no_hp`, `alamat`, `username`, `password`, `level_user`) VALUES
+(1, 'admin', '085156727368', 'kuningan jawa barat', 'admin', 'admin', 1),
+(2, 'Kepala Desa', '085876564751', 'Kuningan Jawa Barat', 'kepaladesa', 'kepaladesa', 2);
 
 --
 -- Indexes for dumped tables
@@ -207,12 +247,6 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indeks untuk tabel `kualitas`
---
-ALTER TABLE `kualitas`
-  ADD PRIMARY KEY (`id_kualitas`);
-
---
 -- Indeks untuk tabel `lokasi_asset`
 --
 ALTER TABLE `lokasi_asset`
@@ -237,12 +271,6 @@ ALTER TABLE `penyusutan`
   ADD PRIMARY KEY (`id_penyusutan`);
 
 --
--- Indeks untuk tabel `spesifikasi`
---
-ALTER TABLE `spesifikasi`
-  ADD PRIMARY KEY (`id_spesifikasi`);
-
---
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -256,67 +284,55 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `asset`
 --
 ALTER TABLE `asset`
-  MODIFY `id_asset` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asset` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `asset_kep`
 --
 ALTER TABLE `asset_kep`
-  MODIFY `id_asset_kep` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asset_kep` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `kualitas`
---
-ALTER TABLE `kualitas`
-  MODIFY `id_kualitas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `lokasi_asset`
 --
 ALTER TABLE `lokasi_asset`
-  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `monitoring`
 --
 ALTER TABLE `monitoring`
-  MODIFY `id_monitoring` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_monitoring` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `penyusutan`
 --
 ALTER TABLE `penyusutan`
-  MODIFY `id_penyusutan` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `spesifikasi`
---
-ALTER TABLE `spesifikasi`
-  MODIFY `id_spesifikasi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penyusutan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

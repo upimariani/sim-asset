@@ -161,7 +161,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-                            <a href="<?= base_url('Admin/cPengajuan') ?>" class="btn btn-sm btn-info float-left">Lihat Pengajuan</a>
+                            <a href="<?= base_url('KepalaDesa/cKeputusan') ?>" class="btn btn-sm btn-info float-left">Lihat Keputusan Pengajuan</a>
                         </div>
                         <!-- /.card-footer -->
                     </div>

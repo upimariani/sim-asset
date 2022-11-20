@@ -3,8 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class cDashboard extends CI_Controller
 {
-
-
     public function __construct()
     {
         parent::__construct();
@@ -14,14 +12,15 @@ class cDashboard extends CI_Controller
 
     public function index()
     {
+
         $data = array(
             'jml' => $this->mDashboard->total(),
             'pengajuan' => $this->mPengajuan->select()
         );
-        $this->load->view('Admin/Layout/head');
-        $this->load->view('Admin/Layout/aside');
-        $this->load->view('Admin/vDashboard', $data);
-        $this->load->view('Admin/Layout/footer');
+        $this->load->view('KepalaDesa/Layout/head');
+        $this->load->view('KepalaDesa/Layout/aside');
+        $this->load->view('KepalaDesa/vDashboard', $data);
+        $this->load->view('KepalaDesa/Layout/footer');
     }
 }
 
