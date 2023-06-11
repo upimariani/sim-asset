@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Nov 2022 pada 04.16
+-- Waktu pembuatan: 02 Apr 2023 pada 00.17
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -47,7 +47,7 @@ CREATE TABLE `asset` (
 --
 
 INSERT INTO `asset` (`id_asset`, `id_lokasi`, `id_kategori`, `id_barang`, `id_user`, `kode_asset`, `merk`, `asal_usul`, `tgl_peroleh`, `harga_asset`, `gambar_asset`, `jml_asset`) VALUES
-(1, 1, 1, 2, 1, 'TNH-001-XI-2022', 'Tanah Hibah', 'H.ZAenal Arifin', '2022-11-20', '200000000', 'Screenshot_2022-06-27_120735.png', 20),
+(1, 1, 1, 2, 1, 'TNH-001-XI-2022', 'Tanah Hibah e', 'H.ZAenal Arifin', '2022-11-20', '200000000', 'Screenshot_2022-06-10_190724.png', 20),
 (2, 1, 2, 1, 1, 'LPTP-001-XI-2022', 'Lenovo Ideapad-330', 'Inventaris Kantor', '2022-11-08', '5000000', 'Screenshot_2022-06-27_120554.png', 5);
 
 -- --------------------------------------------------------

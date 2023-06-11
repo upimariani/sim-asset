@@ -80,10 +80,14 @@
                                                                     } ?>
                                             </td>
                                             <td class="text-center">
-                                                <div class="btn-group">
-                                                    <a href="<?= base_url('Admin/cPengajuan/delete/' . $value->id_pengajuan) ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                                    <a href="<?= base_url('Admin/cPengajuan/edit/' . $value->id_pengajuan) ?>" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                                </div>
+                                                <?php
+                                                if ($value->status_pengajuan == '2') {
+                                                ?>
+                                                    <button type="button" data-toggle="modal" data-target="#detail<?= $value->id_pengajuan ?>" class="btn btn-info"><i class="fas fa-info"></i></button>
+                                                <?php
+                                                }
+                                                ?>
+
                                             </td>
                                         </tr>
                                     <?php
@@ -115,3 +119,35 @@
     </section>
     <!-- /.content -->
 </div>
+
+<?php
+foreach ($detail as $key => $value) {
+?>
+    <div class="modal fade" id="detail<?= $value->id_pengajuan ?>">
+        <div class="modal-dialog">
+            <form action="<?= base_url('kepaladesa/ckeputusan/asset_keputusan/' . $value->id_pengajuan) ?>" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Asset Keputusan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Informasi Keputusan Asset</p>
+                        <strong><?= $value->tgl_kep ?></strong>
+                        <h5><?= $value->nama_asset_kep ?></h5>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<?php
+}
+?>

@@ -15,7 +15,8 @@ class cPengajuan extends CI_Controller
     public function index()
     {
         $data = array(
-            'pengajuan' => $this->mPengajuan->select()
+            'pengajuan' => $this->mPengajuan->select(),
+            'detail' => $this->mPengajuan->info_keputusan()
         );
         $this->load->view('Admin/Layout/head');
         $this->load->view('Admin/Layout/aside');
