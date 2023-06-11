@@ -7,8 +7,9 @@
                 <div class="col-sm-6">
                     <h1>Laporan Kepala Desa</h1>
 
-                    <button class="btn btn-success" onclick="window.print()">Print</button>
+
                 </div>
+
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -16,6 +17,27 @@
                     </ol>
                 </div>
             </div>
+            <form action="<?= base_url('KepalaDesa/cLaporan/cetak_laporan') ?>" method="POST">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <select class="form-control" name="kategori">
+                            <option value="">---Pilih Cetak Laporan Per Kategori---</option>
+                            <?php
+                            foreach ($kategori as $key => $value) {
+                            ?>
+                                <option value="<?= $value->id_kategori ?>"><?= $value->nama_kategori ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-warning">Cetak Surat Laporan</button>
+                    </div>
+                </div>
+            </form>
+
+
         </div><!-- /.container-fluid -->
     </section>
 
@@ -46,7 +68,7 @@
                                         <th class="text-center">No</th>
                                         <th class="text-center">Qr Code</th>
                                         <th class="text-center">Gambar Asset</th>
-                                        <th class="text-center">Nama Barang</th>
+                                        <th class="text-center">Jenis Barang</th>
                                         <th class="text-center">Merk</th>
                                         <th class="text-center">Asal Usul</th>
                                         <th class="text-center">Tanggal Peroleh</th>

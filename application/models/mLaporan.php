@@ -12,6 +12,18 @@ class mLaporan extends CI_Model
         $this->db->join('kategori', 'kategori.id_kategori = asset.id_kategori', 'left');
         return $this->db->get()->result();
     }
+
+    public function asset_kategori($id)
+    {
+        $this->db->select('*');
+        $this->db->from('asset');
+        $this->db->join('barang', 'barang.id_barang = asset.id_barang', 'left');
+        $this->db->join('lokasi_asset', 'lokasi_asset.id_lokasi = asset.id_lokasi', 'left');
+        $this->db->join('kategori', 'kategori.id_kategori = asset.id_kategori', 'left');
+        $this->db->where('asset.id_kategori', $id);
+        return $this->db->get()->result();
+    }
+
     public function pengajuan()
     {
         $this->db->select('*');
